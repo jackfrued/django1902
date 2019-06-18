@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>老师评价统计</title>
+    <style>
+        #main {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <p>
+        <a href="/">返回首页</a>
+    </p>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script>
+        var myChart = echarts.init(document.querySelector('#main'))
+        fetch('/teachers_data/')
+            .then(resp => resp.json())
+            .then(json => {
+                var option = {
+                    color: ['#f00', '#00f'],
+                    title: {
+                        text: '老师评价统计图'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data:['好评', '差评']
+                    },
+                    xAxis: {
+                        data: json.names
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name: '好评',
+                            type: 'bar',
+                            data: json.good
+                        },
+                        {
+                            name: '差评',
+                            type: 'bar',
+                            data: json.bad
+                        }
+                    ]
+                }
+                myChart.setOption(option)
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <style>
+        .fruits>li {
+            list-style-type: none;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            border: 1px solid #0f0;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .intro {
+            height: 120px;
+            border: 1px solid #0f0;
+            width: 80%;
+            margin: -15px 40px;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    {% verbatim %}
+    <div id="app">
+        <h1>今天推荐给你的水果是：</h1>
+        <hr>
+        <ul class="fruits">
+            <li v-for="fruit in fruits" @click="showIntro(fruit)">
+                {{ fruit.name }}
+            </li>
+        </ul>
+        <p class="intro">{{ intro }}</p>
+    </div>
+    {% endverbatim %}
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                fruits: [],
+                intro: '请选择你想了解的水果'
+            },
+            created() {
+                fetch('/get_data/')
+                    .then((resp) => resp.json())
+                    .then((json) => {
+                        this.fruits = json.fruits
+                    })
+            },
+            methods: {
+                showIntro(fruit) {
+                    this.intro = fruit.intro
+                }
+            }
+        })
+    </script>
+</body>
+</html>

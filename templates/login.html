@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <style>
+        .hint {
+            font-size: 12px;
+            color: #f00;
+        }
+        .input {
+            height: 50px;
+        }
+        .input label {
+            display: inline-block;
+            text-align: right;
+            width: 65px;
+        }
+        .button {
+            margin-top: 30px;
+        }
+        #captcha {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1>用户登录</h1>
+    <hr>
+    <p class="hint">{{ hint }}</p>
+    <form action="/login/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="backurl" value="{{ backurl }}">
+        <div class="input">
+            <label>用户名：</label>
+            <input type="text" name="username" required>
+        </div>
+        <div class="input">
+            <label>密码：</label>
+            <input type="password" name="password" required>
+        </div>
+        <div class="input">
+            <label>验证码：</label>
+            <input type="text" name="code" required>
+            <img id="captcha" src="" alt="" width="120">
+        </div>
+        <div class="button">
+            <input type="submit" value="登录">
+            <input type="reset" value="重置">
+        </div>
+    </form>
+    <p>
+        <a href="/">返回首页</a>
+        <a href="/register/">快速注册</a>
+    </p>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function showCaptcha() {
+            $('#captcha').attr('src', '/captcha/?' + Math.random())
+        }
+
+        $(() => {
+            showCaptcha()
+            $('#captcha').on('click', showCaptcha)
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学科</title>
+    <style>
+        .user {
+            float: right;
+            margin-right: 50px;
+        }
+        .user+h1 {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="user">
+        {% if request.session.username %}
+        {{ request.session.username }}
+        <a href="/logout/">注销</a>
+        {% else %}
+        <a href="/login/">用户登录</a>&nbsp;&nbsp;
+        {% endif %}
+        <a href="/register/">快速注册</a>
+    </div>
+    <h1>所有学科</h1>
+    <hr>
+    {% for subject in subjects %}
+    <div>
+        <h3>
+            <a href="/teachers/?sno={{ subject.no }}">{{ subject.name }}</a>
+            {% if subject.is_hot %}
+            <img src="/static/images/hot.png" width="32" alt="">
+            {% endif %}
+        </h3>
+        <p>{{ subject.intro }}</p>
+    </div>
+    {% endfor %}
+    <p>
+        <a href="/excel/">导出所有老师信息</a>
+        <a href="/pdf/">查看学科宣传页</a>
+        <a href="/bar/1/">老师评价统计图</a>
+        <a href="/bar/2/">学科评价统计图</a>
+    </p>
+</body>
+</html>
