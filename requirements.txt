@@ -1,6 +1,6 @@
 certifi==2019.3.9
 chardet==3.0.4
-Django==2.1.8
+Django==2.2.10
 django-debug-toolbar==1.11
 idna==2.8
 Pillow==6.0.0
