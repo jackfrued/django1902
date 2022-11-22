@@ -3,7 +3,7 @@ chardet==3.0.4
 Django==2.1.8
 django-debug-toolbar==1.11
 idna==2.8
-Pillow==6.0.0
+Pillow==9.3.0
 PyMySQL==0.9.3
 pytz==2019.1
 requests==2.22.0
